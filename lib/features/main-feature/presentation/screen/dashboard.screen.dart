@@ -15,6 +15,7 @@ import '../../../../core/constants/assets.constants.dart';
 import '../../../../core/theme/colors.dart';
 import '../../../auth/presentation/bloc/user-bloc/user_bloc.dart';
 import '../widget/dashboard_table.widget.dart';
+import '../widget/logout_dialog.widget.dart';
 import '../widget/menu_card.widget.dart';
 
 class DashboardScreen extends StatelessWidget {
@@ -94,10 +95,19 @@ class _DashboardContentState extends State<DashboardContent> {
           ],
         ),
         actions: [
-          Padding(
-            padding: EdgeInsets.only(right: 30.sp),
-            child: SvgPicture.asset(
-              AssetsConstants.avatarIcon,
+          GestureDetector(
+            onTap: () {
+              showDialog(
+                  context: context,
+                  builder: (context) {
+                    return const LogOutDialog();
+                  });
+            },
+            child: Padding(
+              padding: EdgeInsets.only(right: 30.sp),
+              child: SvgPicture.asset(
+                AssetsConstants.avatarIcon,
+              ),
             ),
           ),
         ],

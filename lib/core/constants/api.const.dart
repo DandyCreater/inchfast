@@ -1,9 +1,8 @@
 class APIConst {
   //Base URL
 
-  static const String apiBaseUrl = 'https://inchfast-api-dev.inchcape.co.id/';
-  static const String authBaseUrl =
-      'https://inchfast-identity-dev.inchcape.co.id/';
+  static const String apiBaseUrl = 'https://pds.api.ilyasin.com/';
+  static const String authBaseUrl = 'https://pds.identity.ilyasin.com/';
 
   //API Path
 
