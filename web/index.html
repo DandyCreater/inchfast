@@ -35,6 +35,26 @@
 </head>
 
 <body>
+  <form id="preventForm" style="display:none" novalidate autocomplete="off"></form>
+  <script>
+    // Hapus semua form submit bawaan
+    document.querySelectorAll("form").forEach(f => {
+      f.setAttribute("novalidate", "true");
+      f.setAttribute("autocomplete", "off");
+      f.addEventListener("submit", e => {
+        e.preventDefault();
+        return false;
+      });
+    });
+
+    // Cegah reload saat keyboard dismiss
+    window.addEventListener("beforeunload", function (e) {
+      if (document.activeElement && document.activeElement.tagName === "INPUT") {
+        e.preventDefault();
+        e.returnValue = '';
+      }
+    });
+  </script>
   <script>
     // Cegah reload page ketika tekan Enter di input/textfield
     document.addEventListener("submit", function (event) {
