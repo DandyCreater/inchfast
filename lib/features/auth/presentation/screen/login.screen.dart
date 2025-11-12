@@ -5,6 +5,7 @@ import 'package:inchfast/core/constants/assets.constants.dart';
 import 'package:inchfast/core/theme/style_text.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inchfast/features/auth/domain/parameter/login.parameter.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../core/config/di/injection_container.dart';
 import '../../../../core/design_component/button.dart';
@@ -62,7 +63,6 @@ class _LoginContentState extends State<LoginContent> {
         }
       },
       child: Scaffold(
-        resizeToAvoidBottomInset: false, // Prevent layout jump
         body: SafeArea(
           child: Center(
             child: SingleChildScrollView(
@@ -126,6 +126,26 @@ class _LoginContentState extends State<LoginContent> {
                     },
                     title: 'SIGN IN',
                     color: UIColors.loginButtonColor,
+                  ),
+                  const SizedBox(height: 20.0),
+                  Center(
+                    child: InkWell(
+                      onTap: () async {
+                        final Uri url = Uri.parse(
+                            'https://drive.google.com/file/d/1R2gzWQIsEvlVLJVmapdVpibTi6fyrlSe/view?usp=sharing');
+                        if (!await launchUrl(url,
+                            mode: LaunchMode.externalApplication)) {
+                          throw Exception('Could not launch $url');
+                        }
+                      },
+                      child: Text(
+                        'Download Inchfast Apk',
+                        style: UIStyle.semiBold(
+                          fontSize: 16,
+                          color: UIColors.loginButtonColor,
+                        ),
+                      ),
+                    ),
                   ),
                 ],
               ),

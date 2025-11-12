@@ -1,9 +1,13 @@
+import 'dart:io';
+
+import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive/hive.dart';
 import 'package:inchfast/core/constants/api.const.dart';
 import 'package:inchfast/features/main-feature/domain/usecase/location_area.usecase.dart';
 import 'package:inchfast/features/main-feature/presentation/cubit/submit-high-rack-cubit/submit_high_rack_cubit.dart';
 import 'package:inchfast/features/main-feature/presentation/cubit/submit-moving-box-cubit/submit_moving_box_cubit.dart';
+import 'package:path_provider/path_provider.dart';
 
 import '../../../features/auth/data/datasources/local/auth_local.datasource.dart';
 import '../../../features/auth/data/datasources/local/auth_local.datasource.impl.dart';
@@ -63,8 +67,14 @@ import '../../services/network.dart';
 final sl = GetIt.instance;
 
 Future init() async {
-  Hive.init('');
+  if (kIsWeb) {
+    Hive.init('');
+  } else {
+    final dir = await getApplicationDocumentsDirectory();
+    Hive.init(dir.path);
+  }
   final authBox = await Hive.openBox("authBox");
+
   sl.registerLazySingleton<ApiService>(() => ApiService(
         baseUrl: APIConst.authBaseUrl,
       ));
